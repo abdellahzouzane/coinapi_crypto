@@ -11,13 +11,21 @@ API for managing cryptocurrency alerts
 ## Available endpoints
 Here are the entry points available for the API with a brief explanation of each:
 
--POST /alerts: Create a new cryptocurrency alert. Returns a confirmation message.
+-POST /alerts: Creates a new cryptocurrency alert. The alert data must be sent in the request body in JSON format with the following keys:
+name: Alert name
+currency: Base currency
+quote_currency: Quotation currency
+anchor_price: Anchor price
+operation: Either “above” or “under”.
 
 -GET /alerts: Get a list of all alerts. Returns a message indicating that alerts are retrieved.
 
 -POST /alerts/<currency_id>: Update a cryptocurrency alert based on its identifier. Returns an update message.
 
 -DELETE /alerts/<currency_id> : Delete a cryptocurrency alert by its identifier. Returns a message indicating that the alert has been deleted.
+
+# Request examples
+'{"name": "Bitcoin Alert", "currency": "BTC", "quote_currency": "USD", "anchor_price": 40000, "operation": "above"}'
 
 ## Database structure
 The API uses a SQLite database to store cryptocurrency alerts. The alert table is created with the following fields:
