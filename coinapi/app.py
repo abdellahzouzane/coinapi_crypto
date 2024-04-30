@@ -1,6 +1,17 @@
 from flask import Flask
+import sqlite3
 
 app = Flask(__name__)
+
+conn = sqlite3.connect('database.db')
+print("Database opened successfully")
+
+# name: name of the alert
+# currency: e.g. BTC (You should use CoinApi asset ID)
+# anchor_price: The price of the operation
+# operation: accepts 2 values "above" and "under"
+conn.execute('CREATE TABLE alerts (name TEXT, currency TEXT, anchor_price REAL, operation TEXT)')
+print("Table created successfully")
 
 
 # Create crypto alert

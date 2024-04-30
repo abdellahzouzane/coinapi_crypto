@@ -19,6 +19,28 @@ Here are the entry points available for the API with a brief explanation of each
 
 -DELETE /alerts/<currency_id> : Delete a cryptocurrency alert by its identifier. Returns a message indicating that the alert has been deleted.
 
+## Database structure
+The API uses a SQLite database to store cryptocurrency alerts. The alert table is created with the following fields:
+
+- **name** : Alert name.
+- currency**: Base currency (e.g. BTC). Use the CoinAPI asset ID.
+- quote_currency**: Quote currency (e.g. USD). Use CoinAPI asset ID.
+- **anchor_price**: Anchor price of the operation.
+- **operation**: Can take 2 values: “above” and “under”.
+
+The following code creates the `alerts` table in the SQLite database:
+
+python
+import sqlite3
+
+# Connect to the database
+conn = sqlite3.connect('database.db')
+print(“Database opened successfully”)
+
+# Create alert table
+conn.execute('CREATE TABLE alerts (name TEXT, currency TEXT, anchor_price REAL, operation TEXT)')
+print(“Table created successfully”)
+
 ## Installation
 To install the API, you first need to install Python and Flask. Then you can set up a virtual environment to isolate your project's dependencies.
 
