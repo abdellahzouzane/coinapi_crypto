@@ -1,5 +1,6 @@
 from flask import Flask, request
 import sqlite3
+import json
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ conn.execute(
 print("Table created successfully")
 
 conn.close()
+
 
 # Create crypto alert
 @app.post("/alerts")
@@ -51,7 +53,20 @@ def create_alert():
 # Get crypto alerts
 @app.get("/alerts")
 def get_alerts():
-    return {"message": "Get alerts"}
+    con = sqlite3.connect("database.db")
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute("select * from alerts")
+    rows = cur.fetchall()
+
+    string_json = json.dumps([dict(ix) for ix in rows])
+    parsed_json = json.loads(string_json)
+
+    return {
+        "data": {
+            "alerts": parsed_json
+        }
+    }
 
 
 # Update crypto alert
