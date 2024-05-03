@@ -1,3 +1,4 @@
+
 # Crypto Alert Project
 API for managing cryptocurrency alerts
 
@@ -63,4 +64,3 @@ env\Scripts\activate # For Windows
 
 # Install Flask
 pip install flask
-
